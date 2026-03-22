@@ -1,0 +1,21 @@
+@startuml
+hide empty description
+scale 350 width
+
+state EMPTY 
+state BUSY 
+state FULL
+state OVERFLOW
+
+    EMPTY --> BUSY : PUT
+    BUSY --> EMPTY : CLEAN
+    BUSY --> EMPTY : READ
+    
+    BUSY --> FULL : HEAD = TAIL
+    FULL --> BUSY : READ
+    FULL --> EMPTY : CLEAN
+
+    FULL --> OVERFLOW : HEAD > TAIL
+    OVERFLOW --> EMPTY : CLEAN
+
+@enduml
